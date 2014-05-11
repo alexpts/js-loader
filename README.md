@@ -26,16 +26,19 @@
 
 ##### Пример иницилизации загрузчика
 
+```javascript
     var Loader = new Loader({
         'moduleDir': '/modules',
         'addFromPage': false
     });
+```
     
 В большинстве случаев достаточно всего 1 загрузчика для всех типов данных, поэтому можно перезатереть констурктор window.Loader экзкмпляром загрузчика, чтобы не создать еще одну копию загрузчика. Функция конструтокр реализована по патерну "модуль", предоставляя наружу только необходимое api, скрывая в себе сложность реализации.
 
 <a name="load" />
 ##### Пример загрузки одиночного скрипта:
 
+```javascript
     Loader.load({String}name, {Object}[params], {Function}[callback]); 
     
     // загрузка по относительному пути
@@ -49,18 +52,22 @@
     
     //кросдоменная загрузка по полному пути
     Loader.load('http://yandex.st/bootstrap/3.1.1/js/bootstrap.min.js');
+```
 
 Параметр ***params*** полностью поддерживает все опции пердоставляемые jQuery.ajax(***params***) [http://stage.api.jquery.com/jQuery.ajax/];
 Поэтому можно повесить дополнительынй callback на любое состояние запроса и использовать почти все возможности ajax.
 
 ##### Вызов callback после загрузки скрипта
 
+```javascript
     Loader.load('bootstrap.js', function(){
         alert('bootstrap is ready!');
     }); 
+```
     
 ##### Тонкое управление (сложный уровень, не рекомендуется для использования)
     
+```javascript
     Loader.load('bootstrap.js', {
         success: function(data, textStatus, jqXHR ){
             console.log('seccond  success callback');
@@ -76,10 +83,12 @@
     }, function(){
         console.log('first success callback');
     });
+```
 
 <a name="loads" />
 ##### Пимер загрузки нескольких зависимостей:
 
+```javascript
     Loader.loads({Array}modules, {Function}[callback]);
 
     var dojoModule = {
@@ -97,6 +106,7 @@
         function(){
             console.log('after load all callback');
     });
+```
 
 Я так и не смог однозначно определиться с тербованиями для автоматической подгрузки зависимостей из-за специфики архитектуры проекта, поэтому предоставил всего лишь 1 метод loads, который скорее всего пригодится при реализации автоматической подгрузки зависимостей в рамках той или иной архитектуры проекта.
 
@@ -104,10 +114,12 @@
 ##### События
 Загрузчик выкидывает на элементе *document* событие ***Loader.load***, передавая в обработчик 3 параметра [name, extension, url]
 
+```javascript
     $(document).on('Loader.load', function(event, name, extension, url){
         ...
     });
-    
+```
+
 <a name="install" />
 ##### Установка
 
