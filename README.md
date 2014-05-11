@@ -12,6 +12,7 @@
 [2. Загрузка скрипта](#load)  
 [3. Загрузка зависимостей](#loads)  
 [4. События](#events)  
+[5. Установка](#install)  
 
 ## Загрузка скриптов
 
@@ -106,3 +107,12 @@
     $(document).on('Loader.load', function(event, name, extension, url){
         ...
     });
+    
+<a name="install" />
+##### Установка
+
+С помощью bower
+
+    bower install js-loader
+    
+Или скачав файл https://github.com/alexpts/js-loader/blob/master/src/loader.js
