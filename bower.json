@@ -1,0 +1,32 @@
+{
+  "name": "js-loader",
+  "version": "1.0.0",
+  "authors": [
+    "alexpts <alexpts@yandex.ru>"
+  ],
+  "description": "async load script and style",
+  "main": "src/loader.js",
+  "keywords": [
+    "lazy",
+    "load",
+    "js",
+    "css",
+    "static",
+    "loader",
+    "depend"
+  ],
+  "license": "MIT",
+  "homepage": "htt://github.com/alexpts",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static",
+    "test",
+    "tests"
+  ],
+
+  "dependencies": {
+    "jquery": "latest"
+  }
+}
