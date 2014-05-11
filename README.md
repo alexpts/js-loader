@@ -1,4 +1,4 @@
-# Async loader javascript/css (json/html/ejs/...)
+# Async loader javascript/css
 
 #EN
 ...
