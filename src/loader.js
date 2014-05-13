@@ -109,10 +109,12 @@
 
         options = $.extend({
             moduleDir: '', // relpath
-            addFromPage: true
+            addFromPage: true,
+            components: []
         }, options);
 
         var pool = {};
+        var components = {};
 
         /**
          * @param {String} name
@@ -127,6 +129,10 @@
 
             if(params.relUrl) {
                 return options.moduleDir + '/' + params.relUrl;
+            }
+
+            if(components[name]) {
+                return getUrl(name, components[name]);
             }
 
             return (/\/\//.test(name)) ? name :  options.moduleDir + '/' + name; // [http(s):]//ya.ru/path.js
@@ -293,14 +299,26 @@
             }
         }
 
+        /**
+         * @param {String} name
+         * @param {Object} params
+         * @param {String} params.url
+         * @param {String} params.relUrl
+         */
+        function addComponent(name, params) {
+            components[name] = params;
+        }
+
         if(options.addFromPage) {
             addHavesModules();
         }
 
         return {
             load: load,
+            loads: loads,
             pool: pool,
-            loads: loads
+            addComponent: addComponent,
+            components: components
         };
     };
 
