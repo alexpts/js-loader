@@ -245,7 +245,7 @@
                     url = module.params.url;
                 }
 
-                if ( !isLoad(moduleName, moduleUrl) ) {
+                if ( !isLoad(name, url) ) {
                     return false;
                 }
             }
