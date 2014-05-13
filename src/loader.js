@@ -235,9 +235,15 @@
             var i = modules.length;
 
             while(i--) {
+                var name, url;
                 var module = modules[i];
-                var moduleName = module.name ||  module;
-                var moduleUrl = module.url || module;
+
+                if(typeof module === 'string') {
+                    name = url = module;
+                } else {
+                    name = module.name;
+                    url = module.params.url;
+                }
 
                 if ( !isLoad(moduleName, moduleUrl) ) {
                     return false;
@@ -258,7 +264,7 @@
                 for(var i = modules.length; i--;) {
                     var module = modules[i];
                     var name = module.name || module;
-                    var params = typeof module === 'string' ? {} : module;
+                    var params = (typeof module === 'string') ? {} : module.params;
                     load(name, params);
                 }
                 var loadDepend = function(){
