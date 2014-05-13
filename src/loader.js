@@ -116,15 +116,26 @@
 
         /**
          * @param {String} name
+         * @param {Object} [params]
          * @returns {String}
          */
-        function getUrl(name){
+        function getUrl(name, params) {
+
+            if(params.url) {
+                return params.url;
+            }
+
+            if(params.relUrl) {
+                return options.moduleDir + '/' + params.relUrl;
+            }
+
             return (/\/\//.test(name)) ? name :  options.moduleDir + '/' + name; // [http(s):]//ya.ru/path.js
         }
 
         /**
          * @param {String} name
          * @param {Object} [params] - implement $.ajax(params) - http://stage.api.jquery.com/jQuery.ajax/
+         * @param {String} [params.relUrl]
          * @param {Function} [callback]
          * @returns {Object} jqXHR
          */
@@ -136,7 +147,7 @@
             }
 
             var ext = _getExt(name);
-            var url = params.url || getUrl(name);
+            var url = getUrl(name, params);
 
             if(isLoad(name, url)) {
                 return false; // ready
@@ -231,7 +242,7 @@
          * @param  {Array} modules
          * @returns {boolean}
          */
-         function isLoads(modules) {
+        function isLoads(modules) {
             var i = modules.length;
 
             while(i--) {
