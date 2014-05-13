@@ -97,6 +97,7 @@
      * @param {Object} [options]
      * @param {String} options.moduleDir
      * @param {Boolean} options.addFromPage
+     * @param {Object} options.components
      *
      * @returns {{load: load, pool: {}, loads: loads}}
      */
