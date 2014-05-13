@@ -230,8 +230,10 @@
             var css = $("link[href$='css']", $head);
             var js = $("script[src$='js']", $head);
             js.add(css).each(function() {
-                var url = $(this).attr('src') || $(this).attr('href');
-                pool[url] = {
+                var $this = $(this);
+                var url = $this.attr('src') || $this.attr('href');
+                var name = $this.data('name') || url;
+                pool[name] = {
                     url: url,
                     status: READY
                 };
