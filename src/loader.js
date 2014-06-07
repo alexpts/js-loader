@@ -9,7 +9,7 @@
     var $head = $('head');
     var $document = $(document);
 
-    function _createNode(name, attrs) {
+    var _createNode = function(name, attrs) {
         var node = document.createElement(name), attr;
 
         for(attr in attrs) {
@@ -19,13 +19,13 @@
         }
 
         return node;
-    }
+    };
 
-    function _getExt(url){
+    var _getExt = function(url){
         return url.replace(/.*\.(\w+)$/, '$1').toLowerCase(); // .js, .css, .json, .tpl
-    }
+    };
 
-    function _lazyScriptTransport(s, originalOptions, jqXHR) {
+    var _lazyScriptTransport = function(s, originalOptions, jqXHR) {
         var ext = _getExt(s.url), node;
 
         return {
@@ -68,7 +68,7 @@
                 node.onerror();
             }
         };
-    }
+    };
     $.ajaxTransport('lazy_script', _lazyScriptTransport);
 
     /**
@@ -76,7 +76,7 @@
      * @param {Array|Function} newCallback
      * @returns {Array}
      */
-    function _addCallback(stack, newCallback){
+    var _addCallback = function(stack, newCallback){
 
         if(!stack) {
             stack = [];
@@ -91,15 +91,13 @@
         }
 
         return stack;
-    }
+    };
 
     /**
      * @param {Object} [options]
      * @param {String} options.moduleDir
      * @param {Boolean} options.addFromPage
      * @param {Object} options.components
-     *
-     * @returns {{load: load, pool: {}, loads: loads}}
      */
     var Loader = function(options) {
         options = options || {};
@@ -122,7 +120,7 @@
          * @param {Object} [params]
          * @returns {String}
          */
-        function getUrl(name, params) {
+        var getUrl = function(name, params) {
 
             if(params.url) {
                 return params.url;
@@ -137,7 +135,7 @@
             }
 
             return (/\/\//.test(name)) ? name :  options.moduleDir + '/' + name; // [http(s):]//ya.ru/path.js
-        }
+        };
 
         /**
          * @param {String} name
@@ -146,7 +144,7 @@
          * @param {Function} [callback]
          * @returns {Object} jqXHR
          */
-        function load(name, params, callback) {
+        var load = function(name, params, callback) {
             params = params || {};
             if(typeof params === 'function') {
                 callback = params;
@@ -206,14 +204,14 @@
             params['dataType'] = 'lazy_script';
 
             return $.ajax(params);
-        }
+        };
 
         /**
          * @param {String} name
          * @param {String} url
          * @returns {boolean}
          */
-        function isLoad(name, url) {
+        var isLoad = function(name, url) {
 
             if(pool[name] && pool[name]['status'] === READY) {
                 if(pool[name]['url'] && (pool[name]['url'] != url)) {
@@ -223,17 +221,17 @@
             }
 
             return false;
-        }
+        };
 
         /**
          * @param {String} name
          * @returns {String|bool}
          */
-        function getStatus(name){
+        var getStatus = function(name){
             return pool[name] ? pool[name]['status'] : false;
-        }
+        };
 
-        function addHavesModules(){
+        var addHavesModules = function(){
             var css = $("link[href$='css']", $head);
             var js = $("script[src$='js']", $head);
             js.add(css).each(function() {
@@ -245,13 +243,13 @@
                     status: READY
                 };
             });
-        }
+        };
 
         /**
          * @param  {Array} modules
          * @returns {boolean}
          */
-        function isLoads(modules) {
+        var isLoads = function(modules) {
             var i = modules.length;
 
             while(i--) {
@@ -271,13 +269,13 @@
             }
 
             return true;
-        }
+        };
 
         /**
          * @param {Array} modules
          * @param {Function} callback
          */
-        function loads(modules, callback){
+        var loads = function(modules, callback){
             if(isLoads(modules)) {
                 callback ? callback() : '';
             } else {
@@ -298,7 +296,7 @@
                     $(document).on('Loader.load', loadDepend);
                 }
             }
-        }
+        };
 
         /**
          * @param {String} name
@@ -306,9 +304,9 @@
          * @param {String} params.url
          * @param {String} params.relUrl
          */
-        function addComponent(name, params) {
+        var addComponent = function(name, params) {
             components[name] = params;
-        }
+        };
 
         if(options.addFromPage) {
             addHavesModules();
@@ -317,8 +315,8 @@
         return {
             load: load,
             loads: loads,
-            pool: pool,
             addComponent: addComponent,
+            pool: pool,
             components: components
         };
     };
