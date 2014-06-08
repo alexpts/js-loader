@@ -1,3 +1,6 @@
+# Модуль переехал в проект https://github.com/alexpts/web-pts/blob/master/docs/loader.md
+
+
 # Async loader javascript/css
 
 #EN
