@@ -30,7 +30,6 @@
 
         return {
             send: function(headers, callback ) {
-
                 // @todo add api to extend types
                 switch(ext) {
                     case 'js':
@@ -102,9 +101,9 @@
     var Loader = function(options) {
         options = options || {};
 
-        const READY = 1;
-        const PENDING = 2;
-        const ERROR = 3;
+        var READY = 1;
+        var PENDING = 2;
+        var ERROR = 3;
 
         options = $.extend({
             moduleDir: '', // relpath
